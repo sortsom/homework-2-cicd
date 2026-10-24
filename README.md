@@ -54,4 +54,4 @@ The rolling update configuration uses:
 
 Jenkins builds the Docker image, pushes it to Amazon ECR, and deploys the new image to Docker Swarm.
 
-The deployment was verified with two running replicas, and the application returned HTTP status 200.
+The deployment was verified with two running replicas, and the application returned HTTP status 200. add
