@@ -39,4 +39,19 @@ Automate the build, image push, and deployment process when changes are pushed t
 
 ## Status
 
-Local Docker application tested successfully. AWS and Jenkins deployment configuration will be added during the next stages. Hi test auto run
+Local Docker application tested successfully. AWS and Jenkins deployment configuration will be added during the next stages.
+
+
+## Docker Swarm Rolling Update
+
+The application runs as a Docker Swarm service with two replicas distributed across the manager and worker nodes.
+
+The rolling update configuration uses:
+- **Parallelism:** 1
+- **Delay:** 10 seconds
+- **Order:** start-first
+- **Failure action:** pause
+
+Jenkins builds the Docker image, pushes it to Amazon ECR, and deploys the new image to Docker Swarm.
+
+The deployment was verified with two running replicas, and the application returned HTTP status 200.
