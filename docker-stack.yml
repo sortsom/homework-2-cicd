@@ -1,0 +1,16 @@
+
+version: "3.8"
+
+services:
+  web:
+    image: 753674273284.dkr.ecr.us-east-1.amazonaws.com/homework2-app:latest
+    ports:
+      - "8080:80"
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: start-first
+      restart_policy:
+        condition: on-failure
