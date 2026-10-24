@@ -3,7 +3,7 @@ version: "3.8"
 
 services:
   web:
-    image: 753674273284.dkr.ecr.us-east-1.amazonaws.com/homework2-app:latest
+    image: ${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}
     ports:
       - "8080:80"
     deploy:
