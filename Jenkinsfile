@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
 
@@ -37,12 +38,29 @@ pipeline {
 
         stage('Push to Amazon ECR') {
             steps {
-                sh '''
-                    aws ecr get-login-password --region ${AWS_REGION} |
-                    docker login --username AWS --password-stdin ${ECR_REGISTRY}
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'aws-ecr-credentials',
+                        usernameVariable: 'AWS_ACCESS_KEY_ID',
+                        passwordVariable: 'AWS_SECRET_ACCESS_KEY'
+                    )
+                ]) {
+                    sh '''
+                        set +x
+                        export AWS_DEFAULT_REGION="${AWS_REGION}"
 
-                    docker push ${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}
-                '''
+                        aws ecr get-login-password \
+                          --region "${AWS_REGION}" |
+                        docker login \
+                          --username AWS \
+                          --password-stdin "${ECR_REGISTRY}"
+
+                        docker push \
+                          "${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}"
+
+                        docker logout "${ECR_REGISTRY}"
+                    '''
+                }
             }
         }
     }
