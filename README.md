@@ -39,4 +39,4 @@ Automate the build, image push, and deployment process when changes are pushed t
 
 ## Status
 
-Local Docker application tested successfully. AWS and Jenkins deployment configuration will be added during the next stages.
+Local Docker application tested successfully. AWS and Jenkins deployment configuration will be added during the next stages. Hi test auto run
